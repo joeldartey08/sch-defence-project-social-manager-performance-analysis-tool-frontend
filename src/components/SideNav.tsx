@@ -21,11 +21,11 @@ const SideNav = () => {
         JOEL'S APP
       </h2>
       <ul className="w-[75%] hidden md:flex items-center md:items-start md:mb-60 justify-between md:gap-6 md:flex-col text-gray-700 font-medium">
-        <li className="cursor-pointer hover:text-black">Dashboard</li>
-        <li className="cursor-pointer hover:text-black">Connected Accounts</li>
-        <li className="cursor-pointer hover:text-black">Content Performance</li>
-        <li className="cursor-pointer hover:text-black">Recommendations</li>
-        <li className="cursor-pointer hover:text-black">Settings</li>
+        <li className="cursor-pointer hover:text-blue-500">Dashboard</li>
+        <li className="cursor-pointer hover:text-blue-500">Connected Accounts</li>
+        <li className="cursor-pointer hover:text-blue-500">Content Performance</li>
+        <li className="cursor-pointer hover:text-blue-500">Recommendations</li>
+        <li className="cursor-pointer hover:text-blue-500">Settings</li>
       </ul>
 
       <div
