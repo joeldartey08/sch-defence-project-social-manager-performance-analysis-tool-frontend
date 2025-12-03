@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Button from "../../components/ui/button";
 import {
@@ -7,17 +7,54 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/ui/card";
-import { BarChart3, Loader2, Plus, TrendingUp, Users } from "lucide-react";
+import { BarChart3, Loader2, Plus, TrendingUp, Users, X } from "lucide-react";
 import Layout from "../../components/Layout";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUser } from "../../services/auth";
 
 const Dashboard: React.FC = () => {
+  const [socialModal, setSocialModal] = useState<boolean>(false);
+  const platforms = [
+    {
+      name: "Facebook",
+      url: "https://facebook.com",
+      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg",
+    },
+    {
+      name: "Instagram",
+      url: "https://instagram.com",
+      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg",
+    },
+    {
+      name: "Twitter / X",
+      url: "https://x.com",
+      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg",
+    },
+    {
+      name: "TikTok",
+      url: "https://tiktok.com",
+      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg",
+    },
+    {
+      name: "LinkedIn",
+      url: "https://linkedin.com",
+      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg",
+    },
+  ];
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ["me"],
     queryFn: fetchUser,
     enabled: true,
   });
+
+  useEffect(() => {
+    if (socialModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [socialModal]);
 
   if (isLoading) {
     return (
@@ -36,15 +73,56 @@ const Dashboard: React.FC = () => {
 
   return (
     <Layout>
+      {socialModal && (
+        <div className="w-full h-full bg-black/60 z-50 fixed left-0 bottom-0 flex justify-center items-center">
+          <div className="w-11/12 bg-white max-w-3xl rounded-2xl p-4 md:p-6">
+            <div>
+              <h2 className="text-xl font-semibold">Select A Platform</h2>
+            </div>
+
+            <div className="mt-4 space-y-3">
+              {platforms.map((p) => (
+                <div
+                  key={p.name}
+                  className="flex items-center justify-between p-4 border rounded-xl hover:bg-blue-300 transition-all text-black cursor-pointer hover:scale-[1.02]"
+                >
+                  <div className="flex items-center gap-3">
+                    <img src={p.logo} alt={p.name} className="w-6 h-6" />
+                    <span className="text-base font-medium">{p.name}</span>
+                  </div>
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-opacity-80 transition flex items-center gap-2"
+                  >
+                    Connect
+                  </a>
+                </div>
+              ))}
+            </div>
+
+            <Button
+              onClick={() => setSocialModal(!socialModal)}
+              className="w-24 flex items-center hover:bg-hover-300 bg-red-500 absolute top-3 right-5 mt-4 rounded-xl"
+            >
+              <X /> close
+            </Button>
+          </div>
+        </div>
+      )}
       <motion.div className="min-h-screen text-black flex">
         {/* Main Content */}
-        <main className="flex-1 p-6 space-y-6">
+        <main className="flex-1 p-4 md:p-6 space-y-6">
           {/* Header */}
           <div className="flex justify-between items-center">
-            <h1 className="text-3xl text-white font-bold">
+            <h1 className="text-lg md:text-2xl text-white font-bold">
               Hello, {data?.name}
             </h1>
-            <Button className="flex items-center bg-blue-800 shadow-2xl gap-2 rounded-xl px-4 py-2">
+            <Button
+              onClick={() => setSocialModal(!socialModal)}
+              className="flex items-center cursor-pointer bg-blue-800 shadow-2xl gap-2 rounded-xl px-4 py-2"
+            >
               <Plus size={18} /> Add Account
             </Button>
           </div>

@@ -6,9 +6,9 @@ interface Props {
 }
 const Layout = ({ children }: Props) => {
   return (
-    <div className="flex gap-10">
+    <div className="md:flex gap-10">
       <SideNav />
-      <div className="w-full h-screen overflow-y-auto">{children}</div>
+      <div className="w-full h-screen pt-20 md:pt-0 md:overflow-y-auto">{children}</div>
     </div>
   );
 };
