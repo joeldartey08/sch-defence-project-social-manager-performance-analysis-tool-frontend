@@ -36,7 +36,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen text-black flex">
+      <motion.div className="min-h-screen text-black flex">
         {/* Main Content */}
         <main className="flex-1 p-6 space-y-6">
           {/* Header */}
@@ -135,7 +135,7 @@ const Dashboard: React.FC = () => {
             </div>
           </section>
         </main>
-      </div>
+      </motion.div>
     </Layout>
   );
 };
