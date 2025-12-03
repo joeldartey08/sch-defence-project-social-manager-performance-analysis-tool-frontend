@@ -2,18 +2,17 @@ import { create } from "zustand";
 
 interface AuthState {
   isAuthenticated: boolean;
-  setUAuthentication: () => void;
+  setUAuthentication: (data: boolean) => void;
   logout: () => void;
 }
 
 export const useStore = create<AuthState>((set) => ({
-  isAuthenticated: false,
+  isAuthenticated: localStorage.getItem("sch_token") ? true : false,
 
-  setUAuthentication: () =>
+  setUAuthentication: (data) =>
     set({
-      isAuthenticated: true,
+      isAuthenticated: data,
     }),
-
 
   logout: () =>
     set({

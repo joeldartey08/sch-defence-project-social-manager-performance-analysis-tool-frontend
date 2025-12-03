@@ -6,9 +6,11 @@ const ProtectedRoute: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const token = localStorage.getItem("sch_token");
-  const { isAuthenticated } = useStore();
+  const { isAuthenticated, setUAuthentication } = useStore();
 
-  if (!isAuthenticated && !token) {
+  if (!isAuthenticated || !token) {
+    setUAuthentication(false);
+
     return <Navigate to={"/"} replace />;
   }
 
