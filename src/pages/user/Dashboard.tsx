@@ -19,11 +19,11 @@ const Dashboard: React.FC = () => {
     url: string;
     logo: string;
   }[] = [
-    // {
-    //   name: "Facebook",
-    //   url: "https://facebook.com",
-    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg",
-    // },
+    {
+      name: "Facebook",
+      url: "https://facebook.com",
+      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg",
+    },
     // {
     //   name: "Instagram",
     //   url: "https://instagram.com",
