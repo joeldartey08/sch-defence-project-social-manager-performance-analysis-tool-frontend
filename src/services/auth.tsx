@@ -120,8 +120,3 @@ export const fetchUser = async () => {
 
 //   return window.location.href = `${res}`;
 // };
-
-export const connectTiktok = () => {
-  window.location.href =
-    "http://localhost:5000/api/v1/connect/tiktok/authorize";
-};

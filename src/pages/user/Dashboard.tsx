@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
     // },
     {
       name: "TikTok",
-      url: "http://localhost:5000/api/v1/connect/tiktok/authorize",
+      url: "https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/tiktok/authorize",
       logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg",
     },
     // {
