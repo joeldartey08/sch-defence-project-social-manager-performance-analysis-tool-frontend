@@ -48,7 +48,7 @@ export const createUser = () => {
       console.log(data);
 
       setTimeout(() => {
-        navigate("/get-code");
+        navigate("/login");
       }, 3000);
     },
     onError: (error) => {
