@@ -10,8 +10,7 @@ import {
 import { BarChart3, Loader2, Plus, TrendingUp, Users, X } from "lucide-react";
 import Layout from "../../components/Layout";
 import { useQuery } from "@tanstack/react-query";
-import { connectTiktok, fetchUser } from "../../services/auth";
-import ConnectSocial from "../../components/ConnectSocial";
+import { fetchUser } from "../../services/auth";
 
 const Dashboard: React.FC = () => {
   const [socialModal, setSocialModal] = useState<boolean>(false);
