@@ -105,3 +105,23 @@ export const fetchUser = async () => {
 
   return res.data.user;
 };
+
+// export const connectTiktok = async () => {
+//   const token = localStorage.getItem("sch_token");
+
+//   if (!token) return null;
+
+//   const res = await api.get("/connect/tiktok/authorize", {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+//   console.log(res);
+
+//   return window.location.href = `${res}`;
+// };
+
+export const connectTiktok = () => {
+  window.location.href =
+    "http://localhost:5000/api/v1/connect/tiktok/authorize";
+};
