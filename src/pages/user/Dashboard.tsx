@@ -74,7 +74,7 @@ const Dashboard: React.FC = () => {
   return (
     <Layout>
       {socialModal && (
-        <div className="w-full h-full bg-black/60 z-50 fixed left-0 bottom-0 flex justify-center items-center">
+        <div className="w-full h-full p-4 bg-black/60 z-50 fixed left-0 bottom-0 flex justify-center items-center">
           <div className="w-11/12 bg-white max-w-3xl rounded-2xl p-4 md:p-6">
             <div>
               <h2 className="text-xl font-semibold">Select A Platform</h2>
