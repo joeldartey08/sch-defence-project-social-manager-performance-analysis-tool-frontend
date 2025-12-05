@@ -30,12 +30,12 @@ const Dashboard: React.FC = () => {
     //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg",
     // },
     {
-      name: "TikTok",
-      url: "https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/tiktok/authorize",
-      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg",
+      name: "Youtube",
+      url: "https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/youtube/authorize",
+      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg",
     },
     // {
-    //   name: "LinkedIn",
+    //   name: "",
     //   url: "https://linkedin.com",
     //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg",
     // },
