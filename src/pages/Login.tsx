@@ -112,7 +112,7 @@ const LoginPage = () => {
             <p className="text-center">
               <Link
                 className="my-4 text-blue-700 hover:text-blue-400 text-center"
-                to="/"
+                to="/signup"
               >
                 Don't have an account?
               </Link>

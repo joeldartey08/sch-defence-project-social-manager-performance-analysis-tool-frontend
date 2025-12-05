@@ -132,7 +132,7 @@ const SignupPage: React.FC<SignupPageProps> = () => {
             <p className="text-center">
               <Link
                 className="my-4 text-blue-700 hover:text-blue-400 text-center"
-                to="/login"
+                to="/"
               >
                 Already have an account?
               </Link>
