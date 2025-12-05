@@ -137,7 +137,7 @@ const SignupPage: React.FC<SignupPageProps> = () => {
                 Already have an account?
               </Link>
             </p>
-            <p className="text-center">
+            {/* <p className="text-center">
               <Link
                 className="my-4 text-blue-700 hover:text-blue-400 text-center"
                 to="/privacy-policy"
@@ -152,7 +152,7 @@ const SignupPage: React.FC<SignupPageProps> = () => {
               >
                 terms & condition?
               </Link>
-            </p>
+            </p> */}
           </CardContent>
         </Card>
       </motion.div>

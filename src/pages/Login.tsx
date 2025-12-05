@@ -117,7 +117,7 @@ const LoginPage = () => {
                 Don't have an account?
               </Link>
             </p>
-            <p className="text-center">
+            {/* <p className="text-center">
               <Link
                 className="my-4 text-blue-700 hover:text-blue-400 text-center"
                 to="/privacy-policy"
@@ -132,7 +132,7 @@ const LoginPage = () => {
               >
                 terms & condition?
               </Link>
-            </p>
+            </p> */}
           </CardContent>
         </Card>
       </motion.div>

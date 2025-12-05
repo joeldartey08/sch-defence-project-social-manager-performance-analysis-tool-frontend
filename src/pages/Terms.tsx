@@ -78,7 +78,7 @@ const Terms = () => {
           <div className="w-full grid gap-8">
             {terms.map((value, index) => (
               <div
-                className="bg-white p-5 flex flex-col items-center gap-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-0.5"
+                className="p-5 flex flex-col items-center gap-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-0.5"
                 key={index}
               >
                 <h1 className="text-lg">{value.sectionTitle}</h1>
