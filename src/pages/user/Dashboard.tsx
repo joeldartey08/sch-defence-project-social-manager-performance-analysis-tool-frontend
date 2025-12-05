@@ -14,6 +14,11 @@ import { fetchUser } from "../../services/auth";
 
 const Dashboard: React.FC = () => {
   const [socialModal, setSocialModal] = useState<boolean>(false);
+    const { data, isLoading, isError } = useQuery({
+    queryKey: ["me"],
+    queryFn: fetchUser,
+    enabled: true,
+  });
   const platforms: {
     name: string;
     url: string;
@@ -31,7 +36,7 @@ const Dashboard: React.FC = () => {
     // },
     {
       name: "Youtube",
-      url: "https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/youtube/callback",
+      url: `https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/youtube/callback?userId=${data.user?._id}`,
       logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg",
     },
     // {
@@ -41,11 +46,7 @@ const Dashboard: React.FC = () => {
     // },
   ];
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["me"],
-    queryFn: fetchUser,
-    enabled: true,
-  });
+
 
   useEffect(() => {
     if (socialModal) {
