@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
     // },
     {
       name: "Youtube",
-      url: "https://social-media-performance-analysis-90yg.onrender.com/api/v1",
+      url: "https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/youtube/callback",
       logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg",
     },
     // {
