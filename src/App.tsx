@@ -15,9 +15,9 @@ function App() {
       <ToastContainer />
 
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/get-code" element={<GetCode />} />
-        <Route path="/" element={<SignupPage />} />
+        <Route path="/login" element={<SignupPage />} />
         <Route path="/terms-condition" element={<Terms />} />
         <Route path="/privacy-policy" element={<Privacy />} />
 
