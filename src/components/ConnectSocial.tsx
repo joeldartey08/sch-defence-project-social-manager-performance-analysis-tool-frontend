@@ -1,9 +1,10 @@
 import { useState } from "react";
-import Button from "./ui/button";
 import { useQuery } from "@tanstack/react-query";
+import { connectSocials } from "../services/auth";
+import Button from "./ui/button";
 
 interface Props {
-  fn: () => void ;
+  fn: string ;
   name: string;
 }
 const ConnectSocial = ({ fn, name }: Props) => {
@@ -11,7 +12,7 @@ const ConnectSocial = ({ fn, name }: Props) => {
 
   const { isLoading, isError } = useQuery({
     queryKey: ["tikTok"],
-    queryFn: fn,
+    queryFn: () => connectSocials(fn),
     enabled: !!start,
   });
 

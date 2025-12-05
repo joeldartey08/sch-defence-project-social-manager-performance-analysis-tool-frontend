@@ -16,7 +16,7 @@ const Dashboard: React.FC = () => {
   const [socialModal, setSocialModal] = useState<boolean>(false);
   const platforms: {
     name: string;
-    url: ()=>void;
+    url: string;
     logo: string;
   }[] = [
     // {
@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
     // },
     {
       name: "Youtube",
-      url: ,
+      url: "https://social-media-performance-analysis-90yg.onrender.com/api/v1",
       logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg",
     },
     // {

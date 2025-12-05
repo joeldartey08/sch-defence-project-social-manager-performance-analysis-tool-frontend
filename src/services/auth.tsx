@@ -113,13 +113,13 @@ export const fetchUser = async () => {
   return res.data.user;
 };
 
-export const connectTiktok = async () => {
+export const connectSocials = async (data: string) => {
   const token = localStorage.getItem("sch_token");
 
   if (!token) return null;
 
-  const res = await api.get("/connect/youtube/authorize");
+  const res = await api.get(data);
   console.log(res);
 
-  return (window.location.href = `${res.data.url}`);
+  window.location.assign(res.data.url);
 };
