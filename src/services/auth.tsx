@@ -64,11 +64,18 @@ export const createUser = () => {
 export const getCode = () => {
   const toast = useToastStore();
   const navigate = useNavigate();
+  const token = localStorage.getItem("sch_token");
+
+  if (!token) return null;
 
   return useMutation({
     mutationFn: async (data: CodeData) => {
       toast.showToast("loading", "sending verification code....");
-      const res = await api.post("/auth/verify-mail", data);
+      const res = await api.post("/auth/verify-mail", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log(data);
 
       return res.data;
@@ -106,17 +113,13 @@ export const fetchUser = async () => {
   return res.data.user;
 };
 
-// export const connectTiktok = async () => {
-//   const token = localStorage.getItem("sch_token");
+export const connectTiktok = async () => {
+  const token = localStorage.getItem("sch_token");
 
-//   if (!token) return null;
+  if (!token) return null;
 
-//   const res = await api.get("/connect/tiktok/authorize", {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   console.log(res);
+  const res = await api.get("/connect/youtube/authorize");
+  console.log(res);
 
-//   return window.location.href = `${res}`;
-// };
+  return (window.location.href = `${res.data.url}`);
+};

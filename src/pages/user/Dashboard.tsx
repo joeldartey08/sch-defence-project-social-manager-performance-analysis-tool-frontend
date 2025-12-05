@@ -16,14 +16,14 @@ const Dashboard: React.FC = () => {
   const [socialModal, setSocialModal] = useState<boolean>(false);
   const platforms: {
     name: string;
-    url: string;
+    url: ()=>void;
     logo: string;
   }[] = [
-    {
-      name: "Facebook",
-      url: "https://facebook.com",
-      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg",
-    },
+    // {
+    //   name: "Facebook",
+    //   url: "https://facebook.com",
+    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg",
+    // },
     // {
     //   name: "Instagram",
     //   url: "https://instagram.com",
@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
     // },
     {
       name: "Youtube",
-      url: "https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/youtube/authorize",
+      url: ,
       logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg",
     },
     // {
