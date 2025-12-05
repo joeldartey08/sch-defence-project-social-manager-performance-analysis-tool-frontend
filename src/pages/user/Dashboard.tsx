@@ -11,10 +11,14 @@ import { BarChart3, Loader2, Plus, TrendingUp, Users, X } from "lucide-react";
 import Layout from "../../components/Layout";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUser } from "../../services/auth";
+import { useSearchParams } from "react-router-dom";
+import { useToastStore } from "../../store/useToastStore";
 
 const Dashboard: React.FC = () => {
+  const toast = useToastStore();
+  const [searchParams] = useSearchParams();
   const [socialModal, setSocialModal] = useState<boolean>(false);
-    const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["me"],
     queryFn: fetchUser,
     enabled: true,
@@ -46,7 +50,18 @@ const Dashboard: React.FC = () => {
     // },
   ];
 
+  useEffect(() => {
+    const connected = searchParams.get("connected");
+    const platform = searchParams.get("platform");
 
+    if (connected === "success") {
+      console.log(`${platform} connected successfully!`);
+
+      toast.showToast("success", `${platform} connected successfully!`);
+
+      window.history.replaceState({}, "", "/dashboard");
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (socialModal) {
