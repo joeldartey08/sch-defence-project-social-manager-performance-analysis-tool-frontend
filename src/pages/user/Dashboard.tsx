@@ -23,32 +23,6 @@ const Dashboard: React.FC = () => {
     queryFn: fetchUser,
     enabled: true,
   });
-  const platforms: {
-    name: string;
-    url: string;
-    logo: string;
-  }[] = [
-    // {
-    //   name: "Facebook",
-    //   url: "https://facebook.com",
-    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg",
-    // },
-    // {
-    //   name: "Instagram",
-    //   url: "https://instagram.com",
-    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg",
-    // },
-    {
-      name: "Youtube",
-      url: `https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/youtube/callback?userId=${data.user?._id}`,
-      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg",
-    },
-    // {
-    //   name: "",
-    //   url: "https://linkedin.com",
-    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg",
-    // },
-  ];
 
   useEffect(() => {
     const connected = searchParams.get("connected");
@@ -85,6 +59,33 @@ const Dashboard: React.FC = () => {
   if (isError) {
     localStorage.removeItem("sch_token");
   }
+
+  const platforms: {
+    name: string;
+    url: string;
+    logo: string;
+  }[] = [
+    // {
+    //   name: "Facebook",
+    //   url: "https://facebook.com",
+    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg",
+    // },
+    // {
+    //   name: "Instagram",
+    //   url: "https://instagram.com",
+    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg",
+    // },
+    {
+      name: "Youtube",
+      url: `https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/youtube/callback?userId=${data.user._id}`,
+      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg",
+    },
+    // {
+    //   name: "",
+    //   url: "https://linkedin.com",
+    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg",
+    // },
+  ];
 
   return (
     <Layout>
