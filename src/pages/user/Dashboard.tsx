@@ -77,7 +77,7 @@ const Dashboard: React.FC = () => {
     // },
     {
       name: "Youtube",
-      url: `https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/youtube/callback?userId=${data?._id}`,
+      url: `https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/youtube/authorize?userId=${data?._id}`,
       logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg",
     },
     // {
