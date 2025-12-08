@@ -4,13 +4,14 @@ import Button from "../../components/ui/button";
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
 } from "../../components/ui/card";
 import { BarChart3, Loader2, Plus, TrendingUp, Users, X } from "lucide-react";
 import Layout from "../../components/Layout";
 import { useQuery } from "@tanstack/react-query";
-import { fetchUser, getAnalytics } from "../../services/auth";
+import { fetchUser, getChannel } from "../../services/auth";
+import AnalyticsChart from "../../components/AnalyticChart";
+import AnalyticsCard from "../../components/AnalyticCard";
+import VideoCard, { type VideoItem } from "../../components/VideoCard";
 
 const Dashboard: React.FC = () => {
   const [socialModal, setSocialModal] = useState<boolean>(false);
@@ -42,21 +43,29 @@ const Dashboard: React.FC = () => {
     },
   ];
 
-  const { data, isLoading, isError } = useQuery({
+  const {
+    data: userData,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["me"],
     queryFn: fetchUser,
     enabled: true,
   });
 
-  // const {
-  //   data: analysis,
-  //   isLoading: loading,
-  //   isError: error,
-  // } = useQuery({
-  //   queryKey: ["analysis"],
-  //   queryFn: getAnalytics,
-  //   enabled: false,
-  // });
+  const {
+    data: channelData,
+    isLoading: loading,
+    isError: error,
+  } = useQuery({
+    queryKey: ["channel"],
+    queryFn: getChannel,
+    enabled: true,
+  });
+
+  const channel = channelData?.channel;
+  const analysis = channelData?.analysis;
+  const videos = channelData?.videos;
 
   useEffect(() => {
     if (socialModal) {
@@ -80,6 +89,34 @@ const Dashboard: React.FC = () => {
   if (isError) {
     localStorage.removeItem("sch_token");
   }
+
+  if (loading) {
+    return (
+      <div className="fixed w-full z-50 backdrop-blur bg-black/70 flex justify-center items-center h-full left-0 bottom-0">
+        <div className="w-96 h-48 bg-blue-100 rounded-lg shadow-lg flex flex-col justify-center items-center p-4">
+          <Loader2 className="animate-spin w-10 h-10 text-blue-700 mb-4" />
+          <p className="text-blue-600 text-lg">Loading</p>
+        </div>
+      </div>
+    );
+  }
+
+  const headers = analysis?.data?.columnHeaders?.map(
+    (c: { name: any }) => c.name
+  );
+  const values = analysis?.data?.rows?.[0];
+
+  const analytics: Record<string, number | string> = {};
+  headers?.forEach(
+    (h: string | number, i: string | number) => (analytics[h] = values?.[i])
+  );
+
+  // Format data for chart
+  const chartData =
+    headers?.map((h: any, i: string | number) => ({
+      label: h,
+      value: Number(values?.[i]),
+    })) || [];
 
   return (
     <Layout>
@@ -127,7 +164,7 @@ const Dashboard: React.FC = () => {
           {/* Header */}
           <div className="flex justify-between items-center">
             <h1 className="text-lg md:text-2xl text-white font-bold">
-              Hello, {data?.name}
+              Hello, {userData?.name}
             </h1>
             <Button
               onClick={() => setSocialModal(!socialModal)}
@@ -138,13 +175,16 @@ const Dashboard: React.FC = () => {
           </div>
 
           {/* Summary Stats */}
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card>
               <CardContent className="p-4 flex items-center gap-4">
                 <Users size={32} className="text-gray-700" />
                 <div>
                   <p className="text-gray-500 text-sm">Total Followers</p>
-                  <p className="text-xl font-bold">38,653</p>
+                  <p className="text-xl font-bold">
+                    {channel ? channel?.data?.subscribers : "0"}
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -153,8 +193,11 @@ const Dashboard: React.FC = () => {
               <CardContent className="p-4 flex items-center gap-4">
                 <TrendingUp size={32} className="text-gray-700" />
                 <div>
-                  <p className="text-gray-500 text-sm">Avg Engagement</p>
-                  <p className="text-xl font-bold">8.4%</p>
+                  <p className="text-gray-500 text-sm">Total Videos</p>
+                  <p className="text-xl font-bold">
+                    {" "}
+                    {channel ? channel?.data?.totalVideos : "0"}
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -163,8 +206,8 @@ const Dashboard: React.FC = () => {
               <CardContent className="p-4 flex items-center gap-4">
                 <BarChart3 size={32} className="text-gray-700" />
                 <div>
-                  <p className="text-gray-500 text-sm">Weekly Reach</p>
-                  <p className="text-xl font-bold">120,420</p>
+                  <p className="text-gray-500 text-sm">Channel Title</p>
+                  {channel ? channel?.data?.title : ""}
                 </div>
               </CardContent>
             </Card>
@@ -173,38 +216,58 @@ const Dashboard: React.FC = () => {
               <CardContent className="p-4 flex items-center gap-4">
                 <TrendingUp size={32} className="text-gray-700" />
                 <div>
-                  <p className="text-gray-500 text-sm">Top Platform</p>
-                  <p className="text-xl font-bold">Instagram</p>
+                  <p className="text-gray-500 text-sm">Platform</p>
+                  <p className="text-xl font-bold">
+                    {" "}
+                    {channel ? " youtube" : ""}
+                  </p>
                 </div>
               </CardContent>
             </Card>
           </div>
-          <motion.header
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-6 flex items-center justify-between"
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="p-6"
           >
-            <div>
-              <h1 className="text-2xl font-bold">YouTube Analytics</h1>
-              <p className="text-sm text-slate-500">
-                Overview for your connected YouTube channel
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="text-right">
-                <div className="text-xs text-slate-400">Connected channel</div>
-                <div className="font-medium">{""}</div>
-              </div>
-              <img
-                src={""}
-                alt="channel"
-                className="h-12 w-12 rounded-full object-cover shadow"
+            <h1 className="text-2xl text-white font-bold mb-6">
+              YouTube Analytics Overview
+            </h1>
+
+            {/* Summary Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+              <AnalyticsCard title="Views" value={analytics?.views} />
+              <AnalyticsCard
+                title="Watch Time (mins)"
+                value={analytics?.estimatedMinutesWatched}
               />
+              <AnalyticsCard
+                title="Avg View Duration (sec)"
+                value={analytics?.averageViewDuration}
+              />
+              <AnalyticsCard
+                title="Avg View % (Engagement)"
+                value={analytics?.averageViewPercentage}
+              />
+              <AnalyticsCard title="Likes" value={analytics?.likes} />
+              <AnalyticsCard title="Comments" value={analytics?.comments} />
+              <AnalyticsCard title="Dislikes" value={analytics?.dislikes} />
             </div>
-          </motion.header>
+
+            {/* Chart */}
+            <AnalyticsChart
+              data={chartData.map((c: { label: any; value: any }) => ({
+                label: c.label,
+                value: c.value,
+              }))}
+              title="YouTube Metrics Summary"
+              dataKey="value"
+            />
+          </motion.div>
 
           {/* Connected Accounts */}
-          <section>
+          {/* <section>
             <h2 className="text-2xl text-white font-bold mb-4">
               Connected Accounts
             </h2>
@@ -222,28 +285,22 @@ const Dashboard: React.FC = () => {
                 </Card>
               ))}
             </div>
-          </section>
+          </section> */}
 
           {/* Top Performing Content */}
           <section>
             <h2 className="text-2xl text-white font-bold mb-4">
-              Top Performing Content
+              Youtube Videos
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3].map((item) => (
-                <Card key={item} className="rounded-2xl">
-                  <CardHeader>
-                    <CardTitle>Post #{item}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="h-32 bg-gray-300 rounded-xl mb-2"></div>
-                    <p>Likes: 1,230</p>
-                    <p>Comments: 320</p>
-                    <p>Engagement: 12.4%</p>
-                  </CardContent>
-                </Card>
+            {
+              videos?.data.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {videos?.data?.map((item: VideoItem) => (
+               <VideoCard key={item.videoId} video={item} />
               ))}
-            </div>
+            </div>: (
+              <p> no videos to preview</p>
+            )
+            }
           </section>
         </main>
       </motion.div>

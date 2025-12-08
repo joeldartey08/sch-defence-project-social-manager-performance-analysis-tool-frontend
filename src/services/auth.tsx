@@ -106,17 +106,14 @@ export const fetchUser = async () => {
   return res.data.user;
 };
 
-export const getAnalytics = async () => {
+export const getChannel = async () => {
   try {
-    const [channel, videos, analytics] = await Promise.all([
-      api.get("/connect/youtube/channel"),
-      api.get("/connect/youtube/videos"),
-      api.get("/connect/youtube/analytics"),
-    ]);
+    const [channel, analysis, videos] = await Promise.all([api.get("/connect/youtube/channel"), api.get("/connect/youtube/analytics"),api.get("/connect/youtube/videos")]);
 
-    console.log({channel, videos, analytics});
-    return {channel, videos, analytics}
+    console.log({channel, analysis, videos});
+    return {channel, analysis, videos}
   } catch (error) {
     console.error(error);
   }
 };
+
