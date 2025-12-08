@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { userLogin } from "../services/auth";
+import { Link } from "react-router-dom";
 const loginSchema = z.object({
   email: z.string().nonempty("cannot be left empty").email("invalid email"),
   password: z.string().min(8, "cannot be less than 8 character"),
@@ -108,6 +109,30 @@ const LoginPage = () => {
                 Login
               </Button>
             </form>
+            <p className="text-center">
+              <Link
+                className="my-4 text-blue-700 hover:text-blue-400 text-center"
+                to="/signup"
+              >
+                Don't have an account?
+              </Link>
+            </p>
+            {/* <p className="text-center">
+              <Link
+                className="my-4 text-blue-700 hover:text-blue-400 text-center"
+                to="/privacy-policy"
+              >
+                privacy & policy
+              </Link>
+            </p>
+            <p className="text-center">
+              <Link
+                className="my-4 text-blue-700 hover:text-blue-400 text-center"
+                to="/terms-condition"
+              >
+                terms & condition?
+              </Link>
+            </p> */}
           </CardContent>
         </Card>
       </motion.div>

@@ -12,42 +12,17 @@ import { fetchUser, getChannel } from "../../services/auth";
 import AnalyticsChart from "../../components/AnalyticChart";
 import AnalyticsCard from "../../components/AnalyticCard";
 import VideoCard, { type VideoItem } from "../../components/VideoCard";
+import { useSearchParams } from "react-router-dom";
+import { useToastStore } from "../../store/useToastStore";
+
 
 const Dashboard: React.FC = () => {
+  const toast = useToastStore();
+  const [searchParams] = useSearchParams();
   const [socialModal, setSocialModal] = useState<boolean>(false);
-  const platforms = [
-    {
-      name: "Facebook",
-      url: "https://facebook.com",
-      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg",
-    },
-    {
-      name: "Instagram",
-      url: "https://instagram.com",
-      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg",
-    },
-    {
-      name: "Twitter / X",
-      url: "https://x.com",
-      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg",
-    },
-    {
-      name: "TikTok",
-      url: "https://tiktok.com",
-      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg",
-    },
-    {
-      name: "LinkedIn",
-      url: "https://linkedin.com",
-      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg",
-    },
-  ];
 
-  const {
-    data: userData,
-    isLoading,
-    isError,
-  } = useQuery({
+
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["me"],
     queryFn: fetchUser,
     enabled: true,
@@ -65,6 +40,19 @@ const Dashboard: React.FC = () => {
   const channel = channelData?.channel;
   const analysis = channelData?.analysis;
   const videos = channelData?.videos;
+
+  useEffect(() => {
+    const connected = searchParams.get("connected");
+    const platform = searchParams.get("platform");
+
+    if (connected === "success") {
+      console.log(`${platform} connected successfully!`);
+
+      toast.showToast("success", `${platform} connected successfully!`);
+
+      window.history.replaceState({}, "", "/dashboard");
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (socialModal) {
@@ -88,6 +76,7 @@ const Dashboard: React.FC = () => {
   if (isError) {
     localStorage.removeItem("sch_token");
   }
+
 
   if (loading) {
     return (
@@ -116,11 +105,38 @@ const Dashboard: React.FC = () => {
       label: h,
       value: Number(values?.[i]),
     })) || [];
+      
+  const platforms: {
+    name: string;
+    url: string;
+    logo: string;
+  }[] = [
+    // {
+    //   name: "Facebook",
+    //   url: "https://facebook.com",
+    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg",
+    // },
+    // {
+    //   name: "Instagram",
+    //   url: "https://instagram.com",
+    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg",
+    // },
+    {
+      name: "Youtube",
+      url: `https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/youtube/authorize?userId=${data?._id}`,
+      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg",
+    },
+    // {
+    //   name: "",
+    //   url: "https://linkedin.com",
+    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg",
+    // },
+  ];
 
   return (
     <Layout>
       {socialModal && (
-        <div className="w-full h-full bg-black/60 z-50 fixed left-0 bottom-0 flex justify-center items-center">
+        <div className="w-full h-full p-4 bg-black/60 z-50 fixed left-0 bottom-0 flex justify-center items-center">
           <div className="w-11/12 bg-white max-w-3xl rounded-2xl p-4 md:p-6">
             <div>
               <h2 className="text-xl font-semibold">Select A Platform</h2>
@@ -130,7 +146,7 @@ const Dashboard: React.FC = () => {
               {platforms.map((p) => (
                 <div
                   key={p.name}
-                  className="flex items-center justify-between p-4 border rounded-xl hover:bg-blue-300 transition-all text-black cursor-pointer hover:scale-[1.02]"
+                  className="flex items-center justify-between p-4 border rounded-xl hover:bg-blue-300 transition-all text-black hover:scale-[1.02]"
                 >
                   <div className="flex items-center gap-3">
                     <img src={p.logo} alt={p.name} className="w-6 h-6" />
@@ -162,12 +178,12 @@ const Dashboard: React.FC = () => {
         <main className="flex-1 p-4 md:p-6 space-y-6">
           {/* Header */}
           <div className="flex justify-between items-center">
-            <h1 className="text-lg md:text-2xl text-white font-bold">
-              Hello, {userData?.name}
+            <h1 className="text-xl md:text-2xl text-white font-bold">
+              Hello, {data?.name}
             </h1>
             <Button
               onClick={() => setSocialModal(!socialModal)}
-              className="flex items-center cursor-pointer bg-blue-800 shadow-2xl gap-2 rounded-xl px-4 py-2"
+              className="flex items-center cursor-pointer text-xs bg-blue-800 shadow-2xl gap-2 rounded-xl px-4 py-2"
             >
               <Plus size={18} /> Add Account
             </Button>

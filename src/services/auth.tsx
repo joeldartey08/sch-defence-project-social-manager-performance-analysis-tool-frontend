@@ -48,7 +48,7 @@ export const createUser = () => {
       console.log(data);
 
       setTimeout(() => {
-        navigate("/get-code");
+        navigate("/login");
       }, 3000);
     },
     onError: (error) => {
@@ -64,11 +64,18 @@ export const createUser = () => {
 export const getCode = () => {
   const toast = useToastStore();
   const navigate = useNavigate();
+  const token = localStorage.getItem("sch_token");
+
+  if (!token) return null;
 
   return useMutation({
     mutationFn: async (data: CodeData) => {
       toast.showToast("loading", "sending verification code....");
-      const res = await api.post("/auth/verify-mail", data);
+      const res = await api.post("/auth/verify-mail", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log(data);
 
       return res.data;
@@ -106,6 +113,7 @@ export const fetchUser = async () => {
   return res.data.user;
 };
 
+
 export const getChannel = async () => {
   try {
     const [channel, analysis, videos] = await Promise.all([api.get("/connect/youtube/channel"), api.get("/connect/youtube/analytics"),api.get("/connect/youtube/videos")]);
@@ -116,4 +124,5 @@ export const getChannel = async () => {
     console.error(error);
   }
 };
+
 
