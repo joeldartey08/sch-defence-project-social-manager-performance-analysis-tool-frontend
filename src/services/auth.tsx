@@ -48,7 +48,7 @@ export const createUser = () => {
       console.log(data);
 
       setTimeout(() => {
-        navigate("/login");
+        navigate("/");
       }, 3000);
     },
     onError: (error) => {
