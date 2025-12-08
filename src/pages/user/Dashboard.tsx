@@ -55,8 +55,7 @@ const Dashboard: React.FC = () => {
 
   const {
     data: channelData,
-    isLoading: loading,
-    isError: error,
+    isLoading: loading
   } = useQuery({
     queryKey: ["channel"],
     queryFn: getChannel,
