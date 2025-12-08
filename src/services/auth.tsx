@@ -113,13 +113,16 @@ export const fetchUser = async () => {
   return res.data.user;
 };
 
-export const connectSocials = async (data: string) => {
-  const token = localStorage.getItem("sch_token");
 
-  if (!token) return null;
+export const getChannel = async () => {
+  try {
+    const [channel, analysis, videos] = await Promise.all([api.get("/connect/youtube/channel"), api.get("/connect/youtube/analytics"),api.get("/connect/youtube/videos")]);
 
-  const res = await api.get(data);
-  console.log(res);
-
-  window.location.assign(res.data.url);
+    console.log({channel, analysis, videos});
+    return {channel, analysis, videos}
+  } catch (error) {
+    console.error(error);
+  }
 };
+
+
