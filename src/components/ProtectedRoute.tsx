@@ -34,7 +34,7 @@ const ProtectedRoute: React.FC<{
     return <Navigate to="/" replace />;
   }
 
-  if (data?.role !== "admin" && data.role !== "user") {
+  if (!data?.role && data?.role !== "admin" && data.role !== "user") {
     return <Navigate to={"/"} replace />;
   }
 

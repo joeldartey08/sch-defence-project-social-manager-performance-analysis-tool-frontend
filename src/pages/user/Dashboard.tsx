@@ -10,7 +10,7 @@ import {
 import { BarChart3, Loader2, Plus, TrendingUp, Users, X } from "lucide-react";
 import Layout from "../../components/Layout";
 import { useQuery } from "@tanstack/react-query";
-import { fetchUser } from "../../services/auth";
+import { fetchUser, getAnalytics } from "../../services/auth";
 
 const Dashboard: React.FC = () => {
   const [socialModal, setSocialModal] = useState<boolean>(false);
@@ -47,6 +47,16 @@ const Dashboard: React.FC = () => {
     queryFn: fetchUser,
     enabled: true,
   });
+
+  // const {
+  //   data: analysis,
+  //   isLoading: loading,
+  //   isError: error,
+  // } = useQuery({
+  //   queryKey: ["analysis"],
+  //   queryFn: getAnalytics,
+  //   enabled: false,
+  // });
 
   useEffect(() => {
     if (socialModal) {
@@ -169,6 +179,29 @@ const Dashboard: React.FC = () => {
               </CardContent>
             </Card>
           </div>
+          <motion.header
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 flex items-center justify-between"
+          >
+            <div>
+              <h1 className="text-2xl font-bold">YouTube Analytics</h1>
+              <p className="text-sm text-slate-500">
+                Overview for your connected YouTube channel
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="text-right">
+                <div className="text-xs text-slate-400">Connected channel</div>
+                <div className="font-medium">{""}</div>
+              </div>
+              <img
+                src={""}
+                alt="channel"
+                className="h-12 w-12 rounded-full object-cover shadow"
+              />
+            </div>
+          </motion.header>
 
           {/* Connected Accounts */}
           <section>
