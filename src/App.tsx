@@ -6,6 +6,8 @@ import ToastContainer from "./components/toast/ToastContainer";
 import Dashboard from "./pages/user/Dashboard";
 import SignupPage from "./pages/Signup";
 import GetCode from "./pages/auth/GetCode";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
 
 function App() {
   return (
@@ -13,9 +15,11 @@ function App() {
       <ToastContainer />
 
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/get-code" element={<GetCode />} />
-        <Route path="/" element={<SignupPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/terms-condition" element={<Terms />} />
+        <Route path="/privacy-policy" element={<Privacy />} />
 
         <Route
           path="/dashboard"
