@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import Button from "../../components/ui/button";
 import {
@@ -64,7 +64,7 @@ const Dashboard = () => {
 
   if (isLoading) {
     return toast.showToast("loading", "Fetching your data...")
-    
+
   }
 
   if (isError) {
@@ -99,33 +99,33 @@ const Dashboard = () => {
       label: h,
       value: Number(values?.[i]),
     })) || [];
-      
+
   const platforms: {
     name: string;
     url: string;
     logo: string;
   }[] = [
-    // {
-    //   name: "Facebook",
-    //   url: "https://facebook.com",
-    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg",
-    // },
-    // {
-    //   name: "Instagram",
-    //   url: "https://instagram.com",
-    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg",
-    // },
-    {
-      name: "Youtube",
-      url: `https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/youtube/authorize?userId=${data?._id}`,
-      logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg",
-    },
-    // {
-    //   name: "",
-    //   url: "https://linkedin.com",
-    //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg",
-    // },
-  ];
+      // {
+      //   name: "Facebook",
+      //   url: "https://facebook.com",
+      //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg",
+      // },
+      // {
+      //   name: "Instagram",
+      //   url: "https://instagram.com",
+      //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg",
+      // },
+      {
+        name: "Youtube",
+        url: `https://social-media-performance-analysis-90yg.onrender.com/api/v1/connect/youtube/authorize?userId=${data?._id}`,
+        logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg",
+      },
+      // {
+      //   name: "",
+      //   url: "https://linkedin.com",
+      //   logo: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg",
+      // },
+    ];
 
   return (
     <Layout>
@@ -299,16 +299,16 @@ const Dashboard = () => {
           {/* Top Performing Content */}
           <section>
             <h2 className="text-2xl text-white font-bold mb-4">
-             Videos 
+              Videos
             </h2>
             {
               videos?.data.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {videos?.data?.map((item: VideoItem) => (
-               <VideoCard key={item.videoId} video={item} />
-              ))}
-            </div>: (
-              <p> no videos to preview</p>
-            )
+                {videos?.data?.map((item: VideoItem) => (
+                  <VideoCard key={item.videoId} video={item} />
+                ))}
+              </div> : (
+                <p> no videos to preview</p>
+              )
             }
           </section>
         </main>
