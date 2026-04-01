@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Eye, EyeOff } from "lucide-react";
+import { BarChart3, Eye, EyeOff } from "lucide-react";
 import Button from "../components/ui/button";
 import Input from "../components/ui/input";
 import {
   Card,
   CardContent,
   CardHeader,
-  CardTitle,
 } from "../components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { userLogin } from "../services/auth";
 import { Link } from "react-router-dom";
+
 const loginSchema = z.object({
   email: z.string().nonempty("cannot be left empty").email("invalid email"),
   password: z.string().min(8, "cannot be less than 8 character"),
@@ -50,9 +50,12 @@ const LoginPage = () => {
       >
         <Card className="rounded-2xl text-black shadow-lg">
           <CardHeader>
-            <CardTitle className="text-center text-black text-2xl font-bold">
-              Login to Joel's App
-            </CardTitle>
+            <div className="flex items-center gap-2 font-bold text-2xl tracking-tighter">
+              <div className="bg-blue-600 p-1.5 rounded-lg">
+                <BarChart3 size={24} />
+              </div>
+              <span>TubeMetrics</span>
+            </div>
           </CardHeader>
 
           <CardContent className="space-y-4">
@@ -64,11 +67,10 @@ const LoginPage = () => {
                   placeholder="Enter your email"
                   {...register("email")}
                   required
-                  className={`rounded-xl ${
-                    errors.email
+                  className={`rounded-xl ${errors.email
                       ? "border-red-300 bg-red-50"
                       : "border-gray-300"
-                  }`}
+                    }`}
                 />
                 <span className="text-red-500 my-2">
                   {errors.email?.message}
@@ -82,11 +84,10 @@ const LoginPage = () => {
                   placeholder="Enter your password"
                   {...register("password")}
                   required
-                  className={`rounded-xl ${
-                    errors.email
+                  className={`rounded-xl ${errors.email
                       ? "border-red-300 bg-red-50"
                       : "border-gray-300"
-                  }`}
+                    }`}
                 />
                 <span className="text-red-500 my-2">
                   {errors.password?.message}
