@@ -36,7 +36,8 @@ const Landing = () => {
         </h1>
         <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
           The all-in-one analytics dashboard for creators. Track subscribers, 
-          engagement rates, and get AI-suggested content ideas to scale your channel.
+          engagement rates.
+          {/* and get AI-suggested content ideas to scale your channel */}
         </p>
         <div className="flex items-center justify-center gap-4">
           <button onClick={()=> navigate("/login")} className="w-full cursor-pointer sm:w-auto bg-white text-black px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-200 transition-all flex items-center justify-center gap-2">
@@ -75,8 +76,8 @@ const Landing = () => {
 
       {/* Features Grid */}
       <section className="px-6 py-24 bg-black/20">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
-          <div className="space-y-4">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
+          <div className="space-y-4 flex flex-col justify-center items-center border border-blue-50/20 backdrop-blur py-6 hover:-translate-y-2 active:-translate-y-2 bg-black/10 duration-300 rounded-lg shadow-md px-4">
             <div className="bg-blue-600/10 w-12 h-12 rounded-xl flex items-center justify-center text-blue-500">
               <TrendingUp />
             </div>
@@ -90,7 +91,7 @@ const Landing = () => {
             <h3 className="text-xl font-bold">Content Suggestions<br></br>(Comming Soon)</h3>
             <p className="text-gray-400">Get data-driven recommendations on what videos you should film next to trend.</p>
           </div> */}
-          <div className="space-y-4">
+          <div className="space-y-4 flex flex-col justify-center items-center border border-blue-50/20 backdrop-blur py-6 hover:-translate-y-2 active:-translate-y-2 bg-black/10 duration-300 rounded-lg shadow-md px-4">
             <div className="bg-blue-600/10 w-12 h-12 rounded-xl flex items-center justify-center text-blue-500">
               <Users />
             </div>
