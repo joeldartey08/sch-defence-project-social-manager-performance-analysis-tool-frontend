@@ -41,8 +41,8 @@ const GeneralPopup = ({ state, onClose, message }: PopupModalProps) => {
         )}
 
         {state === "loading" && (
-          <div className="w-96 h-48 bg-blue-100 rounded-lg shadow-lg flex flex-col justify-center items-center p-4">
-            <Loader2 className="animate-spin w-10 h-10 text-blue-700 mb-4" />
+          <div className="w-96 h-48 bg-black rounded-lg shadow-lg flex flex-col justify-center items-center p-4">
+            <Loader2 className="animate-spin w-10 h-10 text-white mb-4" />
             <p className="text-blue-600 text-lg">{message}</p>
           </div>
         )}

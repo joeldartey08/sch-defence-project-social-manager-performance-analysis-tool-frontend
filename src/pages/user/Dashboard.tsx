@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Button from "../../components/ui/button";
 import {
@@ -16,7 +16,7 @@ import { useSearchParams } from "react-router-dom";
 import { useToastStore } from "../../store/useToastStore";
 
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
   const toast = useToastStore();
   const [searchParams] = useSearchParams();
   const [socialModal, setSocialModal] = useState<boolean>(false);
@@ -63,14 +63,8 @@ const Dashboard: React.FC = () => {
   }, [socialModal]);
 
   if (isLoading) {
-    return (
-      <div className="fixed w-full z-50 backdrop-blur bg-black/70 flex justify-center items-center h-full left-0 bottom-0">
-        <div className="w-96 h-48 bg-blue-100 rounded-lg shadow-lg flex flex-col justify-center items-center p-4">
-          <Loader2 className="animate-spin w-10 h-10 text-blue-700 mb-4" />
-          <p className="text-blue-600 text-lg">Loading</p>
-        </div>
-      </div>
-    );
+    return toast.showToast("loading", "Fetching your data...")
+    
   }
 
   if (isError) {
@@ -81,7 +75,7 @@ const Dashboard: React.FC = () => {
   if (loading) {
     return (
       <div className="fixed w-full z-50 backdrop-blur bg-black/70 flex justify-center items-center h-full left-0 bottom-0">
-        <div className="w-96 h-48 bg-blue-100 rounded-lg shadow-lg flex flex-col justify-center items-center p-4">
+        <div className="w-96 h-48 rounded-lg shadow-lg flex flex-col justify-center items-center p-4">
           <Loader2 className="animate-spin w-10 h-10 text-blue-700 mb-4" />
           <p className="text-blue-600 text-lg">Loading</p>
         </div>
@@ -305,7 +299,7 @@ const Dashboard: React.FC = () => {
           {/* Top Performing Content */}
           <section>
             <h2 className="text-2xl text-white font-bold mb-4">
-              suggested content
+             Videos 
             </h2>
             {
               videos?.data.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

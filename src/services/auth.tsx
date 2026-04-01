@@ -48,7 +48,7 @@ export const createUser = () => {
       console.log(data);
 
       setTimeout(() => {
-        navigate("/");
+        navigate("/login");
       }, 3000);
     },
     onError: (error) => {
@@ -116,13 +116,21 @@ export const fetchUser = async () => {
 
 export const getChannel = async () => {
   try {
-    const [channel, analysis, videos] = await Promise.all([api.get("/connect/youtube/channel"), api.get("/connect/youtube/analytics"),api.get("/connect/youtube/videos")]);
+    const [channel, analysis, videos] = await Promise.all([api.get("/connect/youtube/channel"), api.get("/connect/youtube/analytics"), api.get("/connect/youtube/videos")]);
 
-    console.log({channel, analysis, videos});
-    return {channel, analysis, videos}
+    console.log({ channel, analysis, videos });
+    return { channel, analysis, videos }
   } catch (error) {
     console.error(error);
   }
 };
 
 
+export const logout = async () => {
+  try {
+    localStorage.removeItem("sch_token");
+    await getChannel()
+  } catch (error) {
+    console.error(error);
+  }
+}
